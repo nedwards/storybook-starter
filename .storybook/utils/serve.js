@@ -1,66 +1,90 @@
-const { execSync, exec } = require('child_process')
-const fs = require('fs')
+const { spawn, execFile } = require('child_process')
+const fs = require('fs').promises
 const path = require('path')
 
-// Define the public folder (where Storybook versions are stored)
+const PORT = process.env.PORT || 6006
+const DELAY = 3000
 const publicRoot = path.join(__dirname, '../../public')
 const versionsFile = path.join(publicRoot, 'versions.json')
 
-// Read latest version from versions.json
-let latestVersion = 'latest'
-if (fs.existsSync(versionsFile)) {
+const getLatestVersion = async () => {
   try {
-    const versionsData = JSON.parse(fs.readFileSync(versionsFile, 'utf-8'))
-    latestVersion = versionsData.latest
-    console.log(`📌 Latest Storybook version: ${latestVersion}`)
+    const data = await fs.readFile(versionsFile, 'utf-8')
+    const versionsData = JSON.parse(data)
+    console.log(`📌 Latest Storybook version: ${versionsData.latest}`)
+    return versionsData.latest || 'latest'
   } catch (error) {
     console.error(
       '⚠️ Error reading versions.json, defaulting to latest:',
-      error
+      error.message
     )
+    return 'latest'
   }
-} else {
-  console.error('❌ Error: versions.json not found!')
-  process.exit(1)
 }
 
-// Ensure latest version exists
-const latestPath = path.join(publicRoot, latestVersion)
-if (!fs.existsSync(latestPath)) {
-  console.error(
-    `❌ Error: Latest version folder "${latestVersion}" does not exist.`
-  )
-  process.exit(1)
-}
-
-// Serve the entire `public/` folder so all versions are accessible
-console.log(`🚀 Serving ALL Storybook versions from ${publicRoot}`)
-
-const serverProcess = exec(
-  `npx http-server -p 6006 ${publicRoot} --cors`,
-  (error) => {
-    if (error) {
-      console.error(`❌ Error starting server: ${error}`)
-      process.exit(1)
-    }
-  }
-)
-
-// 🚀 Auto-open Storybook in the browser after a short delay
 const openBrowser = (url) => {
   const platform = process.platform
-  if (platform === 'darwin') {
-    exec(`open ${url}`) // macOS
-  } else if (platform === 'win32') {
-    exec(`start ${url}`) // Windows
+  const commands = {
+    darwin: 'open', // macOS
+    win32: 'start', // Windows
+    linux: 'xdg-open', // Linux
+  }
+
+  const command = commands[platform]
+  if (command) {
+    execFile(command, [url], (error) => {
+      if (error) {
+        console.error(`⚠️ Failed to open browser: ${error.message}`)
+      }
+    })
   } else {
-    exec(`xdg-open ${url}`) // Linux
+    console.error('⚠️ Unsupported platform: Cannot open browser.')
   }
 }
 
-// Wait a moment for the server to start before opening the browser
-setTimeout(() => {
-  const storybookUrl = `http://127.0.0.1:6006/${latestVersion}/`
-  console.log(`🌍 Opening Storybook: ${storybookUrl}`)
-  openBrowser(storybookUrl)
-}, 3000) // Delay to allow server startup
+const startServer = () => {
+  console.log(
+    `🚀 Serving ALL Storybook versions from ${publicRoot} on port ${PORT}`
+  )
+  const server = spawn(
+    'npx',
+    ['http-server', '-p', PORT, publicRoot, '--cors'],
+    {
+      stdio: 'inherit',
+      shell: true,
+    }
+  )
+
+  server.on('error', (error) => {
+    console.error(`❌ Server error: ${error.message}`)
+    process.exit(1)
+  })
+
+  process.on('SIGINT', () => {
+    console.log('\n🛑 Server shutting down gracefully...')
+    server.kill()
+    process.exit(0)
+  })
+
+  return server
+}
+
+;(async () => {
+  const latestVersion = await getLatestVersion()
+  const latestPath = path.join(publicRoot, latestVersion)
+
+  if (!(await fs.stat(latestPath).catch(() => false))) {
+    console.error(
+      `❌ Error: Latest version folder "${latestVersion}" does not exist.`
+    )
+    process.exit(1)
+  }
+
+  startServer()
+
+  setTimeout(() => {
+    const storybookUrl = `http://127.0.0.1:${PORT}/${latestVersion}/`
+    console.log(`🌍 Opening Storybook: ${storybookUrl}`)
+    openBrowser(storybookUrl)
+  }, DELAY)
+})()

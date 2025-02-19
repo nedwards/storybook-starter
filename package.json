@@ -1,0 +1,30 @@
+{
+  "name": "storybook-starter",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf public storybook-static node_modules/.cache",
+    "build": "yarn version && storybook build",
+    "serve": "storybook dev -p 6006",
+    "version": "yarn clean && node .storybook/utils/version.js",
+    "version:serve": "node .storybook/utils/serve.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.6",
+    "@storybook/addon-interactions": "^8.5.6",
+    "@storybook/addon-onboarding": "^8.5.6",
+    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/addon-webpack5-compiler-swc": "^2.1.0",
+    "@storybook/blocks": "^8.5.6",
+    "@storybook/react": "^8.5.6",
+    "@storybook/react-webpack5": "^8.5.6",
+    "@storybook/test": "^8.5.6",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.5.6"
+  }
+}

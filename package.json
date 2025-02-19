@@ -1,6 +1,6 @@
 {
   "name": "storybook-starter",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "clean": "rm -rf public storybook-static node_modules/.cache",
     "build": "yarn version && storybook build",
     "serve": "storybook dev -p 6006",
-    "version": "yarn clean && node .storybook/utils/version.js",
-    "version:serve": "node .storybook/utils/serve.js"
+    "prod": "yarn clean && node .storybook/utils/version.js",
+    "prod:serve": "node .storybook/utils/serve.js"
   },
   "author": "",
   "license": "MIT",

@@ -7,7 +7,10 @@ const preview = {
         date: /Date$/i,
       },
     },
+    docs: {
+      toc: true, // 👈 Enables the table of contents
+    },
   },
-};
+}
 
-export default preview;
+export default preview

@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf public storybook-static node_modules/.cache",
-    "build": "yarn version && storybook build",
+    "build": "yarn prod && storybook build",
     "serve": "storybook dev -p 6006",
-    "prod": "yarn clean && node .storybook/utils/version.js",
+    "prod": "yarn clean && node .storybook/utils/prod.js",
     "prod:serve": "node .storybook/utils/serve.js"
   },
   "author": "",
@@ -21,9 +21,11 @@
     "@storybook/addon-styling-webpack": "^1.0.1",
     "@storybook/addon-webpack5-compiler-swc": "^2.1.0",
     "@storybook/blocks": "^8.5.6",
+    "@storybook/manager-api": "^8.5.7",
     "@storybook/react": "^8.5.6",
     "@storybook/react-webpack5": "^8.5.6",
     "@storybook/test": "^8.5.6",
+    "@storybook/theming": "^8.5.7",
     "prop-types": "^15.8.1",
     "storybook": "^8.5.6"
   }

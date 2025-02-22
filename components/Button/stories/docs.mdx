@@ -1,0 +1,37 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/blocks';
+ 
+import * as ButtonStories from './Button.stories';
+ 
+<Meta of={ButtonStories} />
+ 
+# Button
+ 
+### Import
+
+```jsx
+import { Button } from '@package/components'
+```
+
+### Default Button
+
+<Canvas of={ButtonStories.Default} />
+
+### Properties
+
+<Controls />
+
+### Primary Button
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary Button
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Large Button
+
+<Canvas of={ButtonStories.Large} />
+
+### Small Button
+
+<Canvas of={ButtonStories.Small} />

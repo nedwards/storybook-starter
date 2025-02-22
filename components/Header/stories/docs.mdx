@@ -1,0 +1,29 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/blocks';
+ 
+import * as HeaderStories from './Header.stories';
+ 
+<Meta of={HeaderStories} />
+ 
+# Header
+ 
+### Import
+
+```jsx
+import { Header } from '@package/components'
+```
+
+### Default Header
+
+<Canvas of={HeaderStories.Default} />
+
+### Properties
+
+<Controls />
+
+### Logged In Header
+
+<Canvas of={HeaderStories.LoggedIn} />
+
+### Logged Out Header
+
+<Canvas of={HeaderStories.LoggedOut} />

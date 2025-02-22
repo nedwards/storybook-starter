@@ -1,0 +1,62 @@
+import { Meta, Typeset } from '@storybook/blocks'
+
+<Meta title="Foundations/Typography" />
+
+export const typography = {
+  heading: {
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontWeight: 700,
+    size: {
+      h1: 48,
+      h2: 40,
+      h3: 32,
+      h4: 28,
+    },
+  },
+  body: {
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontWeight: 400,
+    size: {
+      text: 16,
+    },
+  },
+}
+
+export const headingText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+export const bodyText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+
+# Typography
+
+### Heading
+
+**Font Family:** {typography.heading.fontFamily}
+
+**Font Weight:** {typography.heading.fontWeight}
+
+<Typeset
+  fontSizes={[
+    Number(typography.heading.size.h1),
+    Number(typography.heading.size.h2),
+    Number(typography.heading.size.h3),
+    Number(typography.heading.size.h4),
+  ]}
+  fontWeight={typography.heading.fontWeight}
+  sampleText={headingText}
+  fontFamily={typography.heading.fontFamily}
+/>
+
+### Body
+
+**Font Family:** {typography.heading.fontFamily}
+
+**Font Weight:** {typography.heading.fontWeight}
+
+<Typeset
+  fontSizes={[Number(typography.body.size.text)]}
+  fontWeight={typography.body.fontWeight}
+  sampleText={bodyText}
+  fontFamily={typography.body.fontFamily}
+/>

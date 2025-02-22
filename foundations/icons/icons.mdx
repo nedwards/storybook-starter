@@ -1,0 +1,32 @@
+import { Meta, IconGallery, IconItem } from '@storybook/blocks'
+
+import * as icons from './Icons'
+
+<Meta title="Foundations/Icons" />
+
+# Icons
+
+### Import
+
+```jsx
+import { ArrowLeft } from './Icons'
+```
+
+### Usage
+
+```jsx
+<ArrowLeft />
+```
+
+### Icons List
+
+<IconGallery>
+  {Object.keys(icons).map((icon) => {
+    const IconComponent = icons[icon]
+    return (
+      <IconItem key={icon} name={icon}>
+        <IconComponent />
+      </IconItem>
+    )
+  })}
+</IconGallery>

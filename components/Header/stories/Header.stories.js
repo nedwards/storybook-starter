@@ -1,6 +1,8 @@
 import { fn } from '@storybook/test'
 
-import { Header } from './Header'
+import { Header } from '../Header'
+
+import Docs from './docs.mdx'
 
 export default {
   title: 'Components/Header',
@@ -10,6 +12,9 @@ export default {
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
+    docs: {
+      page: Docs,
+    },
   },
   args: {
     onLogin: fn(),
@@ -17,6 +22,8 @@ export default {
     onCreateAccount: fn(),
   },
 }
+
+export const Default = {}
 
 export const LoggedIn = {
   args: {

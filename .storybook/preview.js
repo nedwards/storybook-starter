@@ -1,6 +1,11 @@
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ['Foundations', 'Components'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

@@ -1,3 +1,3 @@
 # Storybook Starter
 
-A minimal Storybook setup to help document UI components for your application.
+A minimal storybook setup to help document and visually test components for your application.

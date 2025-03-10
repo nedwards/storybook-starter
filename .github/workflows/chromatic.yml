@@ -1,0 +1,19 @@
+name: Chromatic Visual Tests
+
+on:
+  pull_request:
+    branches:
+      - 'release/*' # Matches release/v1.0.0, release/v1.2.0, etc.
+    types:
+      - closed # Runs only when a PR is merged (not just opened)
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Publish to Chromatic
+        run: npm run test:chromatic
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_TOKEN }}

@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf public storybook-static node_modules/.cache",
     "build": "yarn prod && storybook build",
-    "serve": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
     "prod": "yarn clean && node .storybook/utils/prod.js",
-    "prod:serve": "node .storybook/utils/serve.js"
+    "prod:storybook": "node .storybook/utils/serve.js",
+    "chromatic": "chromatic --project-token=$CHROMATIC_TOKEN"
   },
   "author": "",
   "license": "MIT",
